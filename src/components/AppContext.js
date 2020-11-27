@@ -1,6 +1,7 @@
 import React from 'react';
 import ContextState from './ContextState';
 import LanguageAdder from './LanguageAdder';
+import LanguageSelector from './LanguageSelector';
 
 export default class AppContext extends React.Component {
     constructor(props) {
@@ -30,18 +31,22 @@ export default class AppContext extends React.Component {
         }
     }
 
-    selectLanguage = (language) => {
+    selectLanguage = (selectLanguage) => {
         this.setState({
-            selectedLanguage : language
+            selectedLanguage: selectLanguage
         })
     }
 
     render() {
         return (
-            <ContextState.Provider value={this.state}>
-                <LanguageAdder />
-                {this.state.languages}
-            </ContextState.Provider>
+            <>
+                {this.state.selectedLanguage}
+                <ContextState.Provider value={this.state}>
+                    <LanguageAdder />
+
+                    <LanguageSelector />
+                </ContextState.Provider>
+            </>
         );
     }
 }

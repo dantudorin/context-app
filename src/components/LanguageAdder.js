@@ -16,13 +16,18 @@ export default class LanguageAdder extends React.Component {
 
     onChange = (event) => {
         this.setState({
-            language: event.target.value
+            language: event.target.value,
         })
     }
 
-    onFormSubmit = (addLanguage) => {
-        addLanguage(this.state.language) === 'exists' && this.setState({
+    onFormSubmit = (event, addLanguage) => {
+        event.preventDefault();
+        addLanguage(this.state.language) === 'exists' 
+        ? this.setState({
             error: true
+        })
+        : this.setState({
+            error : false
         })
     }
 
@@ -33,7 +38,7 @@ export default class LanguageAdder extends React.Component {
                 {({ addLanguage }) => {
                     return (
                         <React.Fragment>
-                            <form onSubmit={() => this.onFormSubmit(addLanguage)}>
+                            <form onSubmit={(event) => this.onFormSubmit(event, addLanguage)}>
                                 <input type='text' name='language' value={this.state.language} onChange={this.onChange} />
                                 <button type='submit'>Submit</button>
                             </form>
